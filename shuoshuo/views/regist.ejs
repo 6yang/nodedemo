@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>说说</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/jumbotron.css" rel="stylesheet">
+
+    <style>
+        #danger{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<% include header.ejs%>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class=" container"style="padding-top: 100px;">
+
+       <div class="panel panel-default">
+           <div class="panel-heading">
+               <h3 class="panel-title">注册</h3>
+           </div>
+           <div class="panel-body">
+               <form>
+                   <div class="form-group">
+                       <label for="username">用户名</label>
+                       <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+                   </div>
+                   <div class="form-group">
+                       <label for="password">密码</label>
+                       <input type="password" class="form-control" id="password" placeholder="请输入密码不能少于6位">
+                   </div>
+                   <button type="button" class="btn btn-default" id="bt_regist">注册</button>
+               </form>
+               <div class="alert alert-danger" role="alert" id="danger"></div>
+           </div>
+       </div>
+</div>
+
+
+
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $("input").focus(function(){
+       $("#danger").fadeOut();
+    });
+    $("#bt_regist").click(function(){
+        $.post("/doregist",{
+            "username":$("#username").val(),
+            "password":$("#password").val()
+        },function(result){
+           if(result == "-2"){
+               $("#danger").fadeIn();
+               $("#danger").html("服务器错误");
+           }else if(result == "-1"){
+               $("#danger").fadeIn();
+               $("#danger").html("该账号已经注册");
+           }else if(result == "1"){
+               $("#danger").removeClass("alert-danger");
+               $("#danger").addClass("alert-success");
+               $("#danger").html("该账号已经注册");
+               $("#danger").fadeIn();
+               $("#danger").fadeOut(500,function(){
+                   window.location.href = "/";
+               });
+           }
+        });
+    });
+</script>
+</body>
+</html>

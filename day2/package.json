@@ -1,0 +1,22 @@
+{
+  "name": "day2",
+  "version": "1.0.0",
+  "description": "zjizuode",
+  "main": "05.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "silly-datetime": "^0.1.2",
+    "bar": "^0.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hdhd"
+  ],
+  "author": "liuyang",
+  "license": "ISC"
+}

@@ -1,0 +1,26 @@
+mongoimport --db icat --collection student --drop --file 文件路径
+文件导入
+db.student.find();
+ 查找所有
+db.student.find({"score.math":50})
+ 查询数学成绩为50
+db.student.find({"score.math":40,"age":12})
+ 查询数学成绩为40 年龄为12
+db.student.find({"score.math"}:{$gt:50})
+ 查询数学成绩大于50的
+db.student.find({"score.math"}:{$lt:50})
+ 查询数学成绩小于50的
+db.student.find({$or:[{"age":9},{"age":11}]})
+ 查询年龄为9岁或者11岁的
+
+ 更新
+
+db.sss.update({"name":"小明"},{$set:{"age",22}})
+修改小明的年龄为22
+db.sss.update({},{$set:{"age",33}},{multi:true});
+修改所有人的年龄5
+
+db.new.stats().count;
+查询数据的条数
+db.new.find().limit(4).skip(4);
+查询4条数据并且从第5条开始

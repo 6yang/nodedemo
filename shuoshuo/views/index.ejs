@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>说说</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/jumbotron.css" rel="stylesheet">
+    <style>
+        .img-circle{
+            width: 20px;
+            height: 20px;
+        }
+        .img-pl{
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+
+        }
+        .date_time{
+            font-size: 10px;
+            color: #777;
+        }
+        .img-pli{
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+        .tubiao-size{
+            font-size: 18px;
+        }
+        .zan{
+            font-size: 10px;
+        }
+        .pilun-size{
+            font-size: 12px;
+            color: #2e6da4;
+        }
+        .zanzan{
+            color: black;
+            text-decoration: none;
+        }
+        .zanfont{
+            color: #102ED9;
+            font-size: 10px;
+        }
+        .zano{
+            color: #337ab7;
+        }
+        .pinlun{
+            color: #0f0f0f;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<% include header.ejs%>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <%if(login){%>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <img src="<%=avatar%>" class="img-circle" style="width: 40px;height: 40px;">
+                    <a><%=username%></a>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <textarea class="form-control" rows="4" id="context"></textarea><br>
+                        <button type="button" class="btn btn-success" id="textbt">发表</button>
+                    </form>
+                    <div class="alert alert-warning" role="alert" id="gg" style="display: none;"></div>
+                    <div class="alert alert-success" role="alert" id="succ" style="display: none;"></div>
+                </div>
+            </div>
+        <%}else{%>
+            <div class="alert alert-warning" role="alert">您还没有登录！登录后才能发表说说</div>
+        <%}%>
+    </div>
+</div>
+
+<div class="container" id="showshuoshuo">
+
+</div>
+
+<div class="container">
+    <button type="button" class="btn btn-default btn-xs" id="getmore">加载更多</button>
+</div>
+</div> <!-- /container -->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/template.js"></script>
+<script type="text/html" id="shuoshuomoban">
+
+    {{each result as value}}
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="media-list">
+                    <li class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object img-pl"  src="{{value.avatar}}" >
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading header-size">{{value.username}}<span class="date_time">&nbsp;&nbsp;{{value.date}}</span></h4>
+                            <p>{{value.context}}</p>
+                            <% if(login == "1"){%>
+                            {{if value.orzan == "1"}}
+
+                                <a class="zanzan zano" onclick="zanzan(this);"  date_shuoshuoid="{{value._id}}">
+                                    <span class="glyphicon glyphicon-thumbs-up tubiao-size"  ></span>
+                                </a>
+                            {{/if}}
+                            {{if value.orzan == "0"}}
+                                <a class="zanzan" onclick="zanzan(this);"  date_shuoshuoid="{{value._id}}">
+                                    <span class="glyphicon glyphicon-thumbs-up tubiao-size"  ></span>
+                                </a>
+                            {{/if}}
+                            <%}else{%>
+                                <a class="zanzan" onclick="zanzan(this);"  date_shuoshuoid="{{value._id}}">
+                                    <span class="glyphicon glyphicon-thumbs-up tubiao-size"  ></span>
+                                </a>
+                           <%}%>
+
+                                {{if value.zan.length !=0}}
+                                <span class="badge zan">{{value.zan.length}}</span>
+                            {{/if}}
+                            &nbsp;&nbsp;
+                            <a class="pinlun"  date_pinlunid = "{{value._id}}" data-toggle="modal" data-target=".{{value._id}} ">
+                                <span class=" glyphicon glyphicon-comment tubiao-size"   ></span>
+                            </a>
+                            <div class="modal fade bs-example-modal-sm {{value._id}}"  tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" >
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">评论</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea class="form-control " id="{{value._id}}" rows="5"></textarea>
+                                            <br/>
+                                            <div class="alert alert-danger" role="alert" style="display: none"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id_pinlun="{{value._id}}" onclick="pinlun(this)" >发送</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            &nbsp;&nbsp;
+                            <a class="pinlun" zhuanfa="{{value._id}}" onclick="zhuanfa(this)">
+                                <span class=" glyphicon glyphicon-share-alt tubiao-size" ></span>
+                            </a>
+                            <div class="alert alert-danger" role="alert" id="zhuanfashibai" style="display: none"></div>
+                            {{if value.zan.length!=0}}
+                             <p class="zanfont">   {{include 'zanren' value}}觉得很赞</p>
+                            {{/if}}
+                            {{if value.comment.length!=0}}
+                                {{include 'pinlun' value}}
+                            {{/if}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <hr>
+    {{/each}}
+</script>
+<script type="text/html" id="pinlun">
+    {{each comment as value }}
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object img-pli"  src="{{value.comment_avatar}}" >
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading pilun-size">
+                    {{value.comment_user}}
+                    <span class="date_time">&nbsp;&nbsp;{{value.date}}</span>&nbsp;&nbsp;
+                </h4>&nbsp;&nbsp;
+
+
+                <p>{{value.comment_context}}</p>
+            </div>
+        </div>
+
+    {{/each}}
+</script>
+<script type="text/html" id="zanren">
+    {{each zan as value}}
+        <span>{{value.name}}、</span>
+    {{/each}}
+</script>
+<script src="js/index.js"></script>
+</body>
+</html>

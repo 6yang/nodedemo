@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>修改书</h1>
+<form action="/delete" method="get">
+    书id：<input type="text" name="id" value="<%=result[0]._id%>"><br>
+    书名：<input type="text" name="name" value="<%=result[0].name%>"><br>
+    作者：<input type="text" name="author" value="<%=result[0].author%>"><br>
+    价格：<input type="text" name="price" value="<%=result[0].price%>"><br>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

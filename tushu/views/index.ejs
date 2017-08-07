@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <style>
+        table th,td{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1><a href="/showadd">添加</a></h1>
+<table border="1">
+    <tr>
+        <th>书名</th>
+        <th>作者</th>
+        <th>价格</th>
+        <th>操作</th>
+    </tr>
+    <%for(var i = 0 ;i<result.length;i++){%>
+    <tr>
+        <td><%= result[i].name%></td>
+        <td><%= result[i].author%></td>
+        <td><%= result[i].price%></td>
+        <td><a href="/xiugai?id=<%=result[i]._id%>">修改</a></td>
+    </tr>
+    <%}%>
+</table>
+</body>
+</html>

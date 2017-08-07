@@ -1,0 +1,4 @@
+01  mime类型文件小例子
+
+02  module 模块的概念
+			require   和 exports  的 使用

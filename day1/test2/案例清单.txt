@@ -1,0 +1,24 @@
+01.js :  write()   writeHead()
+
+02url.js   url.parse(req.url).query;
+			获取成字符串格式
+			url.parse(req.url,true).query;
+			获取成对象格式
+
+03url.js  一个简单的GET表单接收
+
+04router.js  当用户访问/student/222212	查询此学号的学生信息
+			 当用户访问/teacher/653627	查询老师的信息	
+			
+05fs.js  事件读取机制
+
+06fs.js   mkdir文件创建
+
+07fs.js    stat检测文件的状态
+
+08fs.js  readdir  读文件夹里面的文件   并且以数组的形式显示出来
+
+09fs.js    读取文件夹里面的文件并且把文件筛选出来
+			因为是异步所以不成功；
+			所以应该讲异步变为同步才可以
+10fs.js  读取文件夹里面的东西把异步变成同步 ，然后通过函数迭代出来

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #up{
+            margin-top: 100px;
+           padding: 50px;
+            border: 1px solid black;
+            margin-bottom: 5px;
+        }
+        #cls{
+            padding: 50px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="up">
+        <form action="http://127.0.0.1:3000/appcc" method="post" enctype="multipart/form-data">
+            <p>
+                上传文件：
+                <input type="file" name="photo">
+            </p>
+            <p>
+                选择文件夹：
+                <select>
+                    <% for(var i = 0 ;i< fil.length;i++){%>
+                    <option value="<%=fil[i] %>"><%=fil[i] %></option>
+                    <%}%>
+                </select>
+            </p>
+            <p>
+                <input type="submit">
+            </p>
+        </form>
+    </div>
+    <div id="cls">
+        <form action="http://127.0.0.1:3000/appdd" method="post" enctype="multipart/form-data">
+           <p>
+               新建文件夹：
+               <input type="text" name="newfile">
+           </p>
+            <p>
+                <input type="submit" >
+            </p>
+        </form>
+    </div>
+</body>
+</html>

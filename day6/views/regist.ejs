@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+    <h1>注册</h1>
+    <form>
+        姓名：<input type="text" id="name"/><br/>
+        密码：<input type="password" id="password"><br/>
+        <input type="button" id="bt" value="注册">
+    </form>
+</body>
+<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+<script>
+    $("#bt").click(function(){
+        $.post("/dregist",{
+           "name":$("#name").val(),
+            "password":$("#password").val()
+        },function(result){
+            if(result == -1){
+                alert("注册失败");
+            }else if(result == 1){
+                alert("注册成功");
+            }else if(result == 2){
+                alert("账号密码不能为空");
+            }
+        });
+    });
+</script>
+</html>
